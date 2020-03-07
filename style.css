@@ -2,6 +2,8 @@
 
 @import url("https://fonts.googleapis.com/css?family=Nosifer&display=swap");
 
+@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap");
+
 body {
   margin: 0;
   padding: 0;
@@ -9,50 +11,233 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #dae1eb;
+  background: #ebedf0;
 }
 
-.container span {
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.letters span {
   font-size: 4.6875em;
   font-family: "Nosifer", cursive;
   letter-spacing: 0.2em;
-  color: #dae1eb;
+  color: #ebedf0;
+}
 
+.letters.active span {
   text-shadow: 0px 0px 7px rgba(204, 208, 212, 0.9),
     0px 5px 5px rgba(0, 0, 0, 0.8), 0px -5px 10px rgba(207, 206, 206, 0.5),
     3px -3px 5px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.3),
     0px 3px 5px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4),
     3px -3px 5px rgba(173, 173, 173, 0.3);
-
   animation: animate 1.5s ease-in-out infinite alternate;
 }
 
-.container span:nth-child(2) {
+.btn {
+  position: relative;
+  border: none;
+  outline: none;
+  top: 60px;
+  padding: 5px 13px 20px 13px;
+  background: transparent;
+  font-size: 25px;
+  border-top: 3px solid #ff0083;
+  color: #ff0083;
+  font-family: "Libre Baskerville", serif;
+  font-weight: 300;
+  transition: all 1.5s ease-in-out;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff0083;
+  visibility: hidden;
+  transition: all 0.7s ease-in-out;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.btn span:nth-child(3) {
+  position: relative;
+  animation: shake 1.05s ease-in-out infinite alternate;
+}
+
+.btn.active span:nth-child(3) {
+  animation: none;
+}
+
+.btn.active {
+  padding: 15px 15px;
+  border-top: none;
+  border-radius: 5px;
+  color: #fff;
+  top: 80px;
+  box-shadow: 0 15px 40px rgba(255, 0, 131, 0.5);
+}
+
+.btn.active::before {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  visibility: visible;
+  border-radius: 5px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    /* transform: translate3d(-1px, 0, 0); */
+    top: -1px;
+  }
+
+  20%,
+  80% {
+    /* transform: translate3d(2px, 0, 0); */
+    top: 2px;
+  }
+
+  30%,
+  50%,
+  70% {
+    /* transform: translate3d(-4px, 0, 0); */
+    top: -4px;
+  }
+
+  40%,
+  60% {
+    /* transform: translate3d(4px, 0, 0); */
+    top: 4px;
+  }
+}
+
+.ball-container {
+  position: relative;
+}
+
+.ball-container.active .ball {
+  /* position: relative; */
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 2px 5px rgba(255, 0, 32, 0.3), 0 2px 5px rgba(0, 0, 0, 0.3);
+  visibility: visible;
+  /* background: radial-gradient(circle at 150px 150px, #5cabff, #000); */
+  background: radial-gradient(circle at 25px 10px, #ff0083, #881d54);
+  border-radius: 50%;
+  z-index: 1;
+  animation: bounce 0.5s infinite alternate cubic-bezier(0.5, 0.05, 1, 0.5);
+}
+
+.ball {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 5px;
+  height: 5px;
+  animation: none;
+  visibility: hidden;
+  transition: all 0.1s ease-in-out;
+}
+
+.particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
+  margin-left: -10px;
+  margin-top: -10px;
+  animation: bounce 0.5s infinite alternate cubic-bezier(0.5, 0.05, 1, 0.5);
+}
+
+.ball-container.active .shadow {
+  opacity: 0.8;
+  animation: shadow 0.5s infinite alternate cubic-bezier(0.5, 0.05, 1, 0.5);
+}
+
+.shadow {
+  width: 50px;
+  height: 10px;
+  background: #262626;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ff0083;
+  top: 50%;
+  left: 50%;
+  /* z-index: -1; */
+  transform: translate(-50%, -50%);
+}
+
+.particle:nth-child(odd) {
+  border: 2px solid #ff0083;
+  background: transparent;
+}
+
+@keyframes bounce {
+  from {
+    transform: translate3d(0, -150px, 0);
+  }
+  to {
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+@keyframes shadow {
+  from {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(0.4);
+    opacity: 0.8;
+  }
+}
+
+.letters span:nth-child(2) {
   animation-delay: 0.15s;
 }
 
-.container span:nth-child(3) {
+.letters span:nth-child(3) {
   animation-delay: 0.3s;
 }
 
-.container span:nth-child(4) {
+.letters span:nth-child(4) {
   animation-delay: 0.45s;
 }
 
-.container span:nth-child(5) {
+.letters span:nth-child(5) {
   animation-delay: 0.6s;
 }
 
-.container span:nth-child(6) {
+.letters span:nth-child(6) {
   animation-delay: 0.75s;
 }
 
-.container span:nth-child(7) {
+.letters span:nth-child(7) {
   animation-delay: 0.9s;
 }
 
 @keyframes animate {
-  /* to {
+  to {
     text-shadow: none;
-  } */
+  }
 }
